@@ -25,10 +25,14 @@ alias ds="du -h --max-depth=1"
 alias zc="vi ~/.zshrc"
 alias zcr="source ~/.zshrc"
 alias ohmyzsh="vi ~/.oh-my-zsh"
-alias -s md=$EDITOR
 alias gitpersonal="git config user.name 'Dan Quist' && git config user.email 'dan.quist@gmail.com'"
 
+# ZSH only
+if [ -n "$ZSH_VERSION" ]; then
+  alias -s md=$EDITOR
+fi
+
 # Local additions - Don't edit below this line
-if [[ -f ".aliases.local" ]]; then
-  source ".aliases.local"
+if [[ -f "$HOME/.aliases.local" ]]; then
+  source "$HOME/.aliases.local"
 fi

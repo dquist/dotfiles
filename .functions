@@ -2,30 +2,7 @@
 
 init_ssh() {
   eval `ssh-agent -s` > /dev/null 2>&1
-  ssh-add .ssh/dquist_rsa > /dev/null 2>&1
-}
-
-function zle-line-init zle-keymap-select {
-  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-  zle reset-prompt
-}
-
-vi_mode() {
-  bindkey '^P' up-history
-  bindkey '^N' down-history
-  bindkey '^?' backward-delete-char
-  bindkey '^h' backward-delete-char
-  bindkey '^w' backward-kill-word
-  bindkey '^r' history-incremental-search-backward
-
-  precmd() { RPROMPT="" }
-
-  zle -N zle-line-init
-  zle -N zle-keymap-select
-
-  bindkey -v
-  export KEYTIMEOUT=1
+  ssh-add "$HOME/.ssh/dquist_rsa" > /dev/null 2>&1
 }
 
 # This fixes zsh fuzzy search which breaks with the vi-mode plugin
@@ -46,7 +23,6 @@ fix_zsh_history() {
 
 setup_env() {
   init_ssh
-  vi_mode
   fix_zsh_history
 }
 

@@ -72,4 +72,28 @@ source .env
 source .functions
 source .aliases
 
+function zle-line-init zle-keymap-select {
+  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+  zle reset-prompt
+}
+
+vi_mode() {
+  bindkey '^P' up-history
+  bindkey '^N' down-history
+  bindkey '^?' backward-delete-char
+  bindkey '^h' backward-delete-char
+  bindkey '^w' backward-kill-word
+  bindkey '^r' history-incremental-search-backward
+
+  precmd() { RPROMPT="" }
+
+  zle -N zle-line-init
+  zle -N zle-keymap-select
+
+  bindkey -v
+  export KEYTIMEOUT=1
+}
+
+vi_mode
 setup_env
