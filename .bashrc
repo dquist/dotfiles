@@ -117,14 +117,10 @@ if ! shopt -oq posix; then
 fi
 
 # User configuration
-source .env
-source .functions
-source .aliases
+source "$HOME/.env"
+source "$HOME/.functions"
+source "$HOME/.aliases"
 
-setup_env
-
-if [[ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]]; then
-  if [[ -x "$(command -v wsl)" ]]; then
-    exec wsl
-  fi
-fi
+setup_common
+bash_check_login
+bash_launch_wsl

@@ -68,9 +68,9 @@ plugins=(git z vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-source .env
-source .functions
-source .aliases
+source "$HOME/.env"
+source "$HOME/.functions"
+source "$HOME/.aliases"
 
 function zle-line-init zle-keymap-select {
   VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
@@ -96,4 +96,4 @@ vi_mode() {
 }
 
 vi_mode
-setup_env
+setup_common

@@ -21,7 +21,23 @@ fix_zsh_history() {
   fi
 }
 
-setup_env() {
+bash_check_login() {
+  export LOGIN_SHELL=0
+  shopt -q login_shell
+  if [[ $? -eq 0 ]]; then
+    export LOGIN_SHELL=1
+  fi
+}
+
+bash_launch_wsl() {
+  if [[ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]]; then
+    if [[ -x "$(command -v wsl)" ]] && [[ $LOGIN_SHELL == 0 ]]; then
+      exec wsl
+    fi
+  fi
+}
+
+setup_common() {
   init_ssh
   fix_zsh_history
 }
