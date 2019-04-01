@@ -8,6 +8,7 @@ alias pip=pip3
 # Directories
 alias d="cd $DEV"
 alias h="cd $HOME"
+alias work="cd $WORK"
 alias w=work
 alias p="cd $PERSONAL"
 alias github="cd $GITHUB"
@@ -22,14 +23,19 @@ alias dotfiles="$HOME/dotfiles"
 alias nyan="nyancat"
 alias sf="screenfetch"
 alias ds="du -h --max-depth=1"
-alias zc="vi ~/.zshrc"
-alias zcr="source ~/.zshrc"
-alias ohmyzsh="vi ~/.oh-my-zsh"
 alias gitpersonal="git config user.name 'Dan Quist' && git config user.email 'dan.quist@gmail.com'"
 
 # ZSH only
 if [ -n "$ZSH_VERSION" ]; then
   alias -s md=$EDITOR
+  alias zc="vi ~/.zshrc"        # Edit zsh config
+  alias zcr="source ~/.zshrc"   # Reload zsh config
+  alias ohmyzsh="vi ~/.oh-my-zsh"
+
+# Bash only
+elif [ -n "$BASH_VERSION" ]; then
+  alias bc="vi ~/.bashrc"       # Edit bash config
+  alias bcr="source ~/.bashrc"  # Reload bash config
 fi
 
 # Local additions - Don't edit below this line

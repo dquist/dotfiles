@@ -6,6 +6,16 @@ readonly BACKUP="$HOME/.dotbackup"
 # --- Strict Mode ------------------------------------------------------------
 set -euo pipefail
 
+# --- Options ----------------------------------------------------------------
+copy_flag=''
+
+OPTIND=1
+while getopts 'c' flag; do
+  case "${flag}" in
+    c) copy_flag='true' ;;
+    *) error "Unexpected option ${flag}" ;;
+  esac
+done
 
 # --- Data -------------------------------------------------------------------
 set -euo pipefail
@@ -41,8 +51,8 @@ create_dirs() {
   done
 }
 
-# Backsup and creates a single dotfile symlink
-install_symlink() {
+# Installs a single dotfile, backing up any existing file
+install_dotfile() {
   echo "  → $1"
   SRC="$DOTFILES/$1"
   DEST="$HOME/$1"
@@ -52,17 +62,21 @@ install_symlink() {
   fi
 
   rm -f $DEST
-  ln -s $SRC $DEST 
+  if [[ $copy_flag == 'true' ]]; then
+    cp $SRC $DEST
+  else
+    ln -s $SRC $DEST 
+  fi
 }
 
 # Installs all the configured dotfiles as symlinks
-install_symlinks() {
+install_dotfiles() {
   echo
-  echo 'Installing symlinks ...'
+  echo 'Installing dotfiles ...'
   for i in "${INSTALL_FILES[@]}"
   do
     : 
-  install_symlink $i
+  install_dotfile $i
   done
 }
 
@@ -70,4 +84,4 @@ install_symlinks() {
 # --- Body -------------------------------------------------------------------
 init
 create_dirs
-install_symlinks
+install_dotfiles
