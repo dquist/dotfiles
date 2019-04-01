@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+# ----------------------------------------------------------------------------
+# DESCRIPTION
+#   Installs the project dotfiles on the local system
+#
+# EXAMPLES
+#   install.sh
+#
+# OPTIONS
+#   -c        Copy the dotfiles instead of using symlinks (Windows)
+#
+# ----------------------------------------------------------------------------
 # --- Env --------------------------------------------------------------------
 export DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly BACKUP="$HOME/.dotbackup"
