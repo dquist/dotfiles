@@ -122,3 +122,9 @@ source .functions
 source .aliases
 
 setup_env
+
+if [[ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]]; then
+  if [[ -x "$(command -v wsl)" ]]; then
+    exec wsl
+  fi
+fi
