@@ -14,6 +14,9 @@ set_npm_path() {
 }
 
 wsl_only() {
+  # Checks if running under WSL
+  # 'uname -v' will return the kernel version in the form of
+  #   #379-Microsoft Wed Mar 06 19:16:00 PST 2019
   if [[ $(uname -v | sed -rE 's/^#[0-9]{3,}-(\S+).+/\1/') == "Microsoft" ]]; then
     alias pshell="powershell.exe"
     alias cmd="cmd.exe"
