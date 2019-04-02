@@ -72,13 +72,8 @@ source "$HOME/.env"
 source "$HOME/.functions"
 source "$HOME/.aliases"
 
-function zle-line-init zle-keymap-select {
-  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-  zle reset-prompt
-}
-
 vi_mode() {
+  bindkey -v
   bindkey '^P' up-history
   bindkey '^N' down-history
   bindkey '^?' backward-delete-char
@@ -86,14 +81,34 @@ vi_mode() {
   bindkey '^w' backward-kill-word
   bindkey '^r' history-incremental-search-backward
 
-  precmd() { RPROMPT="" }
+  function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[green]%} [% NORMAL]%  %{$reset_color%}"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+    zle reset-prompt
+  }
 
   zle -N zle-line-init
   zle -N zle-keymap-select
 
-  bindkey -v
   export KEYTIMEOUT=1
 }
 
-vi_mode
+# This fixes zsh fuzzy search which breaks with the vi-mode plugin
+# start typing + [Up-Arrow] - fuzzy find history forward
+fix_zsh_history() {
+  if [[ "${terminfo[kcuu1]}" != "" ]]; then
+    autoload -U up-line-or-beginning-search
+    zle -N up-line-or-beginning-search
+    bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+  fi
+  # start typing + [Down-Arrow] - fuzzy find history backward
+  if [[ "${terminfo[kcud1]}" != "" ]]; then
+    autoload -U down-line-or-beginning-search
+    zle -N down-line-or-beginning-search
+    bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+  fi
+}
+
 setup_common
+vi_mode
+fix_zsh_history

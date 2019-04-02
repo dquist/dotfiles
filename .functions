@@ -22,6 +22,11 @@ fix_zsh_history() {
   fi
 }
 
+into() {
+  mkdir $1
+  cd $1
+}
+
 setup_common() {
   init_ssh
   fix_zsh_history
