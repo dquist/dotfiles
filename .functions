@@ -32,6 +32,8 @@ setup_common() {
   init_ssh
   set_npm_path
   wsl_only
+
+  umask 027
 }
 
 # Local additions - Don't edit below this line

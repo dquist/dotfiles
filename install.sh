@@ -33,7 +33,6 @@ set -euo pipefail
 
 INSTALL_FILES=(
   '.aliases'
-  '.bash_logout'
   '.bash_profile'
   '.bashrc'
   '.env'
