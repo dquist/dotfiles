@@ -125,4 +125,5 @@ else
     source "$HOME/.env"
     source "$HOME/.functions"
     source "$HOME/.aliases"
+    setup_common
 fi
