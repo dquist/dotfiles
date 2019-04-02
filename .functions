@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 init_ssh() {
-  eval `ssh-agent -s` > /dev/null 2>&1
-  ssh-add "$HOME/.ssh/dquist_rsa" > /dev/null 2>&1
+  SSH_KEY="$HOME/.ssh/dquist_rsa"
+  FP=$(ssh-keygen -lf $SSH_KEY  | awk '{print $2}')
+  ssh-add -l | grep -q $FP || ssh-add $SSH_KEY
 }
 
 # This fixes zsh fuzzy search which breaks with the vi-mode plugin
@@ -18,22 +19,6 @@ fix_zsh_history() {
     autoload -U down-line-or-beginning-search
     zle -N down-line-or-beginning-search
     bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
-  fi
-}
-
-bash_check_login() {
-  export LOGIN_SHELL=0
-  shopt -q login_shell
-  if [[ $? -eq 0 ]]; then
-    export LOGIN_SHELL=1
-  fi
-}
-
-bash_launch_wsl() {
-  if [[ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]]; then
-    if [[ -x "$(command -v wsl)" ]] && [[ $LOGIN_SHELL == 0 ]]; then
-      exec wsl
-    fi
   fi
 }
 
