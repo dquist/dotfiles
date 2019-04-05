@@ -21,6 +21,7 @@ alias dotfiles="$HOME/dotfiles"
 
 # Misc commands
 alias ll="ls -alh --group-directories-first"
+alias lls="ls -alhSp | grep -v / --color=tty"
 alias nyan="nyancat"
 alias sf="screenfetch"
 alias ds="du -h --max-depth=1"

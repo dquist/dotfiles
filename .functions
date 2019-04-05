@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 init_ssh() {
-  if [[ $0 == "-zh" ]]; then
+  if [[ $0 == "-zh" ]] || [[ $0 == 'init_ssh' ]]; then
     SSH_KEY="$HOME/.ssh/dquist_rsa"
     FP=$(ssh-keygen -lf $SSH_KEY  | awk '{print $2}')
     ssh-add -l | grep -q $FP || ssh-add $SSH_KEY
@@ -26,6 +26,12 @@ wsl_only() {
 into() {
   mkdir $1
   cd $1
+}
+
+gsize() {
+  git gc
+  size=$(git count-objects -vH | grep size-pack | awk '{ print $2, $3 }' | xargs)
+  echo 'Repo size: $size'
 }
 
 setup_common() {

@@ -1,3 +1,4 @@
+set nocompatible
 set number
 set paste
 
