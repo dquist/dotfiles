@@ -6,8 +6,11 @@ alias python='python3.7'
 alias pip=pip3
 
 # Directories
-alias d="cd $DEV"
 alias h="cd $HOME"
+alias dev="cd $DEV"
+alias d="dev"
+alias exp="$DEV/exp"
+alias e="exp"
 alias work="cd $WORK"
 alias w=work
 alias p="cd $PERSONAL"
