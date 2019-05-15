@@ -9,8 +9,10 @@ init_ssh() {
 }
 
 set_npm_path() {
-  npm set prefix ~/.npm
-  export PATH="$HOME/.npm/bin:$PATH"
+  if [[ $(which programname >/dev/null;) ]]; then
+    npm set prefix ~/.npm
+    export PATH="$HOME/.npm/bin:$PATH"
+  fi
 }
 
 wsl_only() {
