@@ -8,13 +8,6 @@ init_ssh() {
   fi
 }
 
-set_npm_path() {
-  if [[ $(which programname >/dev/null;) ]]; then
-    npm set prefix ~/.npm
-    export PATH="$HOME/.npm/bin:$PATH"
-  fi
-}
-
 wsl_only() {
   # Checks if running under WSL
   # 'uname -v' will return the kernel version in the form of
@@ -38,7 +31,6 @@ gsize() {
 
 setup_common() {
   init_ssh
-  set_npm_path
   wsl_only
 
   umask 027

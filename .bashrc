@@ -99,31 +99,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-check_login() {
-  export LOGIN_SHELL=0
-  shopt -q login_shell
-  if [[ $? -eq 0 ]]; then
-    export LOGIN_SHELL=1
-  fi
-}
-
-check_wsl() {
-  if [[ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]]; then
-    if [[ -x "$(command -v wsl)" ]] && [[ $LOGIN_SHELL == 0 ]]; then
-      RUN_WSL='true'
-    fi
-  fi
-}
-
-check_login
-check_wsl
-
-if [[ $RUN_WSL == 'true' ]]; then
-    exec wsl
-else 
-    # User configuration
-    source "$HOME/.env"
-    source "$HOME/.functions"
-    source "$HOME/.aliases"
-    setup_common
-fi
+  # User configuration
+  source "$HOME/.env"
+  source "$HOME/.functions"
+  source "$HOME/.aliases"
+  setup_common
