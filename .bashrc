@@ -12,12 +12,24 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
+# Append history instead of replacing
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Remove history file size
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+
+# Store commands on one line
+shopt -s cmdhist
+
+# Ignore space and duplicate commands
+HISTCONTROL=ignoreboth
+
+# Ignore these commands
+HISTIGNORE='ls:bg:fg:history'
+
+# Store history immediately instead of on exit
+PROMPT_COMMAND='history -a'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.

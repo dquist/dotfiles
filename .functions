@@ -15,6 +15,12 @@ wsl_only() {
   if [[ $(uname -v | sed -rE 's/^#[0-9]{3,}-(\S+).+/\1/') == "Microsoft" ]]; then
     alias pshell="powershell.exe"
     alias cmd="cmd.exe"
+
+    # Activate brew
+    test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+    test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+    echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
   fi
 }
 
@@ -34,25 +40,6 @@ setup_common() {
   wsl_only
 
   umask 027
-
-  # Append history instead of replacing
-  shopt -s histappend
-
-  # Remove history file size
-  HISTFILESIZE=1000000
-  HISTSIZE=1000000
-
-  # Store commands on one line
-  shopt -s cmdhist
-
-  # Ignore space and duplicate commands
-  HISTCONTROL=ignoreboth
-
-  # Ignore these commands
-  HISTIGNORE='ls:bg:fg:history'
-
-  # Store history immediately instead of on exit
-  PROMPT_COMMAND='history -a'
 }
 
 # Local additions - Don't edit below this line
