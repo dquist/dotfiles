@@ -12,15 +12,15 @@ wsl_only() {
   # Checks if running under WSL
   # 'uname -v' will return the kernel version in the form of
   #   #379-Microsoft Wed Mar 06 19:16:00 PST 2019
-  if [[ $(uname -v | sed -rE 's/^#[0-9]{3,}-(\S+).+/\1/') == "Microsoft" ]]; then
+  if [[ $(uname -v | sed -rE 's/^#[0-9]{1,}-(\S+).+/\1/') == "Microsoft" ]]; then
     alias pshell="powershell.exe"
     alias cmd="cmd.exe"
 
     # Activate brew
     test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
     test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-    echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+    eval $($HOME/.linuxbrew/bin/brew shellenv)
+    export WSL=1
   fi
 }
 
@@ -46,3 +46,5 @@ setup_common() {
 if [[ -f ".functions.local" ]]; then
   source ".functions.local"
 fi
+
+setup_common

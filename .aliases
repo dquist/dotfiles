@@ -2,8 +2,10 @@
 
 
 # Tools
-alias python='python3.7'
-alias pip=pip3
+if [[ $WSL ]]; then
+  alias python='python3.7'
+  alias pip=pip3
+fi
 
 # Directories
 alias h="cd $HOME"

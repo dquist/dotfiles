@@ -119,6 +119,5 @@ fix_zsh_history() {
   fi
 }
 
-setup_common
 vi_mode
 fix_zsh_history
