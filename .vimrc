@@ -36,3 +36,7 @@ set expandtab
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
+
+" Add a colored ruler at column 120
+set colorcolumn=120
+highlight ColorColumn ctermbg=lightgrey guibg=lightgrey

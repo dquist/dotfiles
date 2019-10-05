@@ -45,6 +45,8 @@ setup_common() {
   umask 027
 }
 
+function ssh () {/usr/bin/ssh -t $@ "tmux attach || tmux new";}
+
 # Local additions - Don't edit below this line
 if [[ -f ".functions.local" ]]; then
   source ".functions.local"
