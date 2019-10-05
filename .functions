@@ -2,9 +2,12 @@
 
 init_ssh() {
   if [[ $0 == "-zh" ]] || [[ $0 == 'init_ssh' ]]; then
-    SSH_KEY="$HOME/.ssh/dquist_rsa"
-    FP=$(ssh-keygen -lf $SSH_KEY  | awk '{print $2}')
-    ssh-add -l | grep -q $FP || ssh-add $SSH_KEY
+    TEMP_SSH_KEY="$HOME/.ssh/dquist_rsa"
+    if [[ -f $TEMP_SSH_KEY ]]; then
+      export SSH_KEY="$TEMP_SSH_KEY"
+      FP=$(ssh-keygen -lf $SSH_KEY  | awk '{print $2}')
+      ssh-add -l | grep -q $FP || ssh-add $SSH_KEY
+    fi
   fi
 }
 
