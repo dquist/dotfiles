@@ -31,6 +31,8 @@ alias nyan="nyancat"
 alias sf="screenfetch"
 alias ds="du -h --max-depth=1"
 alias gitpersonal="git config user.name 'Dan Quist' && git config user.email 'dan.quist@gmail.com'"
+alias gce="git config --edit"
+alias gcge="git config --global --edit"
 
 # ZSH only
 if [ -n "$ZSH_VERSION" ]; then
