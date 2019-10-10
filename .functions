@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Starts the ssh agent with my private key if it exists
 init_ssh() {
   if [[ $0 == "-zh" ]] || [[ $0 == 'init_ssh' ]]; then
     TEMP_SSH_KEY="$HOME/.ssh/dquist_rsa"
@@ -11,6 +12,7 @@ init_ssh() {
   fi
 }
 
+# Some WSL-specific configuration
 wsl_only() {
   # Checks if running under WSL
   # 'uname -v' will return the kernel version in the form of
@@ -27,17 +29,20 @@ wsl_only() {
   fi
 }
 
+# Creates a directory and moves into it
 into() {
   mkdir $1
   cd $1
 }
 
+# Function for determining the size of a git repository
 gsize() {
   git gc
   size=$(git count-objects -vH | grep size-pack | awk '{ print $2, $3 }' | xargs)
   echo 'Repo size: $size'
 }
 
+# Common setup that applies to all environments
 setup_common() {
   init_ssh
   wsl_only
@@ -45,7 +50,10 @@ setup_common() {
   umask 027
 }
 
-function ssh () {/usr/bin/ssh -t $@ "tmux attach || tmux new";}
+# Remaps ssh to automatically start a tmux session on the remote server
+ssh () {
+  /usr/bin/ssh -t $@ "tmux attach || tmux new"
+}
 
 # Local additions - Don't edit below this line
 if [[ -f ".functions.local" ]]; then
