@@ -51,6 +51,16 @@ ssh () {
   /usr/bin/ssh -t $@ "tmux attach || tmux new"
 }
 
+# Switches back to master after a branch has been remotely merged
+gmerged() {
+    branch_name="$(git symbolic-ref --short HEAD)"
+    git fetch origin master:master
+    git checkout master
+    git fetch --all --prune
+    git branch -d "$branch_name"
+}
+
+
 # Local additions - Don't edit below this line
 if [[ -f ".functions.local" ]]; then
   source ".functions.local"
