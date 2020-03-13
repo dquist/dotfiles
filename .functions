@@ -21,10 +21,6 @@ wsl_only() {
     alias pshell="powershell.exe"
     alias cmd="cmd.exe"
 
-    # Activate brew
-    test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-    test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    eval $($HOME/.linuxbrew/bin/brew shellenv)
     export WSL=1
   fi
 }
