@@ -60,6 +60,11 @@ gmerged() {
     git branch -d "$branch_name"
 }
 
+gfix() {
+    git add .
+    git commit --amend --no-edit
+    git push -f
+}
 
 # Local additions - Don't edit below this line
 if [[ -f ".functions.local" ]]; then
